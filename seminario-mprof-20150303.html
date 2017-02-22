@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Uma breve introdução sobre mineração de padrões frequentes</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link rel="stylesheet" media="all" href="seminario-mprof-20150303_files/ioslides-13.5.1/fonts/fonts.css">
+
+  <link rel="stylesheet" media="all" href="seminario-mprof-20150303_files/ioslides-13.5.1/theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="seminario-mprof-20150303_files/ioslides-13.5.1/theme/css/phone.css">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'Uma breve introdução sobre mineração de padrões frequentes',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+              },
+
+      // Author information
+      presenters: [
+            {
+        name:  'Renato Vimieiro <br> <a href="mailto:rv2@cin.ufpe.br">rv2@cin.ufpe.br</a> <br> Sala: B001' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+
+  </style>
+
+  <link rel="stylesheet" href="mytemplate.css" type="text/css" />
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides>
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;">março – 2015</p>
+          </hgroup>
+  </slide>
+
+<slide class=''><hgroup><h2>Sumário</h2></hgroup><article  id="sumario">
+
+<ul>
+<li>Minha formação</li>
+<li>Visão geral sobre padrões frequentes</li>
+<li>Aplicações</li>
+<li>Alguns trabalhos recentes</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Minha formação</h2></hgroup><article  id="minha-formacao">
+
+<div class="centered">
+<img src="images/instituicoes.png" 
+alt="Instituições que fiz parte" height="90%" width="90%"></div>
+
+</article></slide><slide class=''><hgroup><h2>Visão geral sobre padrões frequentes</h2></hgroup><article  id="visao-geral-sobre-padroes-frequentes">
+
+<blockquote>
+<p>Mineração de dados é uma maneira sistemática de organizar dados para facilitar a extração de informações úteis e desconhecidas</p>
+</blockquote>
+
+<ul>
+<li>Mineração de regras de associação é uma das formas mais efetivas/populares</li>
+<li>Introduzida para analisar padrões de consumo em supermercados</li>
+<li>Ideia é identificar itens que são frequentemente comprados em uma única transação (<strong><em>padrões frequentes</em></strong>)</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Aplicações</h2></hgroup><article  id="aplicacoes">
+
+<div class="columns-2">
+<ul>
+<li>Marketing</li>
+<li>Recuperação de informação</li>
+<li>Bio/Quimio-informática</li>
+<li>Sistemas de recomendação</li>
+<li>Sistemas de classificação</li>
+</ul>
+
+<div class="centered">
+<img src="images/beer_diapers.jpg" 
+alt="Marketing" height="90%" width="90%"> <br> (a) Marketing</div></div>
+
+</article></slide><slide class=''><hgroup><h2>Aplicações &#8211; Sistemas de recomendação</h2></hgroup><article  id="aplicacoes----sistemas-de-recomendacao">
+
+<div class="centered">
+<img src="images/amazon.png" 
+alt="Sistemas de recomendação" height="33%" width="33%"></div>
+
+</article></slide><slide class=''><hgroup><h2>Aplicações &#8211; Quimioinformática (mineração de grafos)</h2></hgroup><article  id="aplicacoes----quimioinformatica-mineracao-de-grafos">
+
+<table>
+<tr>
+<th><p>
+
+Cafeína
+
+</p></th>
+<th><p>
+
+Teobromina (Choc)
+
+</p></th>
+<th><p>
+
+Teofilina (Asma)
+
+</p></th>
+</tr>
+<tr>
+<td>
+
+<div class="centered">
+<img src="images/caffeinemolecule.png" 
+alt="Cafeína" height="100%" width="75%"></div>
+
+</td>
+<td>
+
+<div class="centered">
+<img src="images/choc_theobrominemolecule.png" 
+alt="Teobromina" height="78%" width="75%"></div>
+
+</td>
+<td>
+
+<div class="centered">
+<img src="images/asthma-theophyllinemolecule.png" 
+alt="Teofilina" height="78%" width="75%"></div>
+
+</td>
+</tr>
+</table>
+
+
+</article></slide><slide class=''><hgroup><h2>Desafios</h2></hgroup><article  id="desafios">
+
+<ul>
+<li>Minerar grandes volumes de dados</li>
+<li>Adaptar/Desenhar algoritmos eficientes para problemas específicos</li>
+<li>Auxiliar especialistas na aplicação desses algoritmos</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Mineração de padrões discriminativos</h2></hgroup><article  id="mineracao-de-padroes-discriminativos">
+
+<blockquote>
+<p><strong>Problema</strong>: encontrar padrões que sejam <strong>frequentes</strong> em um grupo, e que sejam <strong>infrequente</strong> nos demais.</p>
+</blockquote>
+
+<ul>
+<li>Aplicações:
+
+<ul>
+<li>Caracterização de doenças (sadio x doente) (Yeoh et al., 2002)</li>
+<li>E-learning (Romero et al., 2009)</li>
+<li>Análise de tráfego em cidades (Lavrac et al., 2004)</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Possibilidades a explorar</h2></hgroup><article  id="possibilidades-a-explorar">
+
+<ul>
+<li>Uso de novas tecnologias para paralelização massiva (GPUs, Xeon-Phi, MapReduce &#8230;)</li>
+<li>Uso de heurísticas (e.g. algoritmos genéticos)</li>
+<li>Aplicações diversas</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Alguns trabalhos recentes</h2></hgroup><article  id="alguns-trabalhos-recentes">
+
+<p><font size=2.5> Arefin AS, Vimieiro R, Riveros C, Craig H, Moscato P (2014) An Information Theoretic Clustering Approach for Unveiling Authorship Affinities in Shakespearean Era Plays and Poems. PLoS ONE 9(10): e111445. <a href='doi:10.1371/journal.pone.0111445' title=''>doi:10.1371/journal.pone.0111445</a> </font></p>
+
+<div class="centered">
+<img src="images/shakespeare.png" 
+alt="Agrupamento de obras literárias" height="68%" width="65%"></div>
+
+</article></slide><slide class=''><hgroup><h2>Alguns trabalhos recentes</h2></hgroup><article  id="alguns-trabalhos-recentes-1">
+
+<p><font size=2.5> Milioli, H, Vimieiro, R, Riveros C, Tishchenko, I, Berretta, R, Moscato P (2015) The discovery of novel biomarkers improves breast cancer intrinsic subtype prediction and reconciles the labels in the METABRIC data set. PLoS ONE (em revisão) </font></p>
+
+<div class="centered">
+<img src="images/jsDistance.pam50.svg" 
+alt="Subtipos câncer de mama" height="68%" width="65%"></div>
+
+</article></slide><slide class=''><hgroup><h2>Perguntas?</h2></hgroup><article  id="perguntas">
+
+<div class="centered">
+
+ 
+
+<p>
+
+ 
+
+<p>
+<h2>
+
+Obrigado!
+
+</h2>
+
+
+<div>
+
+
+</article></slide><slide class=''><hgroup><h2>Referências</h2></hgroup><article  id="referencias">
+
+<p><font size=3> Yeoh, E-J; et al. Classification, subtype discovery, and prediction of outcome in pediatric acute lymphoblastic leukemia by gene expression profiling, Cancer Cell, Volume 1, Issue 2, March 2002, Pages 133-143, ISSN 1535-6108, <a href='http://dx.doi.org/10.1016/S1535-6108(02)00032-6' title=''>http://dx.doi.org/10.1016/S1535-6108(02)00032-6</a>.</p>
+
+<p>Romero, C.; González, P.; Ventura, S.; del Jesus, M.J.; Herrera, F. Evolutionary algorithms for subgroup discovery in e-learning: A practical application using Moodle data, Expert Systems with Applications, Volume 36, Issue 2, Part 1, March 2009, Pages 1632-1644, ISSN 0957-4174, <a href='http://dx.doi.org/10.1016/j.eswa.2007.11.026' title=''>http://dx.doi.org/10.1016/j.eswa.2007.11.026</a>.</p>
+
+<p>Lavrač, N., Kavšek, B., Flach, P. A., &amp; Todorovski, L. (2004). Subgroup discovery with CN2-SD. Journal of Machine Learning Research, 5, 153 - 188.</p>
+
+<p></font></p>
+
+</article></slide><slide class=''><hgroup><h2>Referências</h2></hgroup><article  id="referencias-1">
+
+<p><font size=3> Arefin AS, Vimieiro R, Riveros C, Craig H, Moscato P (2014) An Information Theoretic Clustering Approach for Unveiling Authorship Affinities in Shakespearean Era Plays and Poems. PLoS ONE 9(10): e111445. <a href='doi:10.1371/journal.pone.0111445' title=''>doi:10.1371/journal.pone.0111445</a></p>
+
+<p>Vimieiro, R. and P. Moscato (2014). A new method for mining disjunctive emerging patterns in high-dimensional datasets using hypergraphs. Information Systems 40, 1-10.</p>
+
+<p></font></p></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script src="seminario-mprof-20150303_files/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+<script src="seminario-mprof-20150303_files/ioslides-13.5.1/js/prettify/prettify.js"></script>
+<script src="seminario-mprof-20150303_files/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+<script src="seminario-mprof-20150303_files/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+<script src="seminario-mprof-20150303_files/ioslides-13.5.1/js/hammer.js"></script>
+<script src="seminario-mprof-20150303_files/ioslides-13.5.1/js/slide-controller.js"></script>
+<script src="seminario-mprof-20150303_files/ioslides-13.5.1/js/slide-deck.js"></script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "seminario-mprof-20150303_files/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
